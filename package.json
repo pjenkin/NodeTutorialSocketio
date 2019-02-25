@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/pjenkin/NodeTutorialSocketio/issues"
   },
-  "homepage": "https://github.com/pjenkin/NodeTutorialSocketio#readme"
+  "homepage": "https://github.com/pjenkin/NodeTutorialSocketio#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
