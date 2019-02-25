@@ -35,6 +35,17 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) =>
 {
   console.log('new user connected')
+
+  // new event name and data with event
+  // socket.emit('newEmail');
+  socket.emit('newEmail',
+  {
+      from: 'mike@example.com',
+      text: 'copying from video',
+      createAt: Date.now()
+  });
+
+
   // challenge 9-107
   socket.on('disconnect', () =>
   {
