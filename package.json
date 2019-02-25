@@ -1,0 +1,19 @@
+{
+  "name": "nodechatapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjenkin/NodeTutorialSocketio.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pjenkin/NodeTutorialSocketio/issues"
+  },
+  "homepage": "https://github.com/pjenkin/NodeTutorialSocketio#readme"
+}
