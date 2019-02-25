@@ -45,11 +45,32 @@ io.on('connection', (socket) =>
       createAt: Date.now()
   });
 
+  // challenge 9-108: newMessage : from, text, createdAt
+  // receive from client:- createMessage : from, text
+  var fromString = 'PNJServer@example.com';    // https://www.w3schools.com/js/js_reserved.asp - from
+  var textBody = 'Hello from PNJ on server';
+  var createdAt = Date.now();
+  socket.emit('newMessage',
+  {
+      from: fromString,
+      text: textBody,
+      createdAt: createdAt
+  });
+
 
   socket.on('createEmail', (newEmail) =>
   {
     console.log('createEmail', newEmail);
   });
+
+  // challenge 9-108: newMessage : from, text, createdAt
+  // receive from client:- createMessage : from, text
+
+  socket.on('createMessage', (createMessage) =>
+  {
+    // createMessage.createdAt = Date.now();    // ??
+    console.log('received createMessage ', createMessage);
+  })
 
   // challenge 9-107
   socket.on('disconnect', () =>

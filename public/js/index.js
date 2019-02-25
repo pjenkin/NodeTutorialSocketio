@@ -12,6 +12,18 @@ socket.on('connect', function ()
     text: 'Hello from Peter.'
   });
 
+  // challenge 9-108:- createMessage : from, text
+  // NB createdAt made on server to prevent spoofing
+  // receive from client:- newMessage : from, text, createdAt
+  var fromString = 'PNJClient@example.com';    // https://www.w3schools.com/js/js_reserved.asp - from
+  var textString = 'Hello from PNJ on client';
+  socket.emit('createMessage',
+  {
+    from: fromString,
+    text: textString
+  });
+
+
 });
 
 // socket.on('disconnect', () =>
@@ -25,4 +37,13 @@ socket.on('disconnect', function ()
 socket.on('newEmail', function (email)
 {
   console.log('New email', email);
+});
+
+// challenge 9-108:- createMessage : from, text
+// NB createdAt made on server to prevent spoofing
+// receive from client:- newMessage : from, text, createdAt
+
+socket.on('newMessage', function (newMessage)
+{
+  console.log('Got newMessage: ', newMessage);
 });
