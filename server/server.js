@@ -14,7 +14,8 @@ console.log('publicPath using path.join : ',publicPath);
 // challenge 9-106: express app, middleware to server public, listen on 3000 (with message)
 
 var app = express();
-var port = 3000;      // just 3000 for now
+// var port = 3000;      // just 3000 for now
+const port = process.env.PORT || 3000;
 
 app.get('/public', (request, response) =>
 {
