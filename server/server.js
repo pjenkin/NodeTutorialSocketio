@@ -46,6 +46,11 @@ io.on('connection', (socket) =>
   });
 
 
+  socket.on('createEmail', (newEmail) =>
+  {
+    console.log('createEmail', newEmail);
+  });
+
   // challenge 9-107
   socket.on('disconnect', () =>
   {
