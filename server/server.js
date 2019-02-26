@@ -71,12 +71,21 @@ io.on('connection', (socket) =>
     // createMessage.createdAt = Date.now();    // ??
     console.log('received createMessage ', createMessage);
     // io.emit (not socket.emit) - send to *all* connections
-    io.emit('newMessage',
+    // io.emit('newMessage',
+    // {
+    //   from: createMessage.from,
+    //   text: createMessage.text,
+    //   createdAt: new Date().getTime()
+    // });
+
+    // broadcast - specifying origin socket
+    socket.broadcast.emit('newMessage',
     {
-      from: createMessage.from,
-      text: createMessage.text,
-      createdAt: new Date().getTime()
+        from: createMessage.from,
+        text: createMessage.text,
+        createdAt: new Date().getTime()
     });
+
   })
 
   // challenge 9-107
