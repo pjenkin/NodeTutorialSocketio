@@ -47,3 +47,15 @@ socket.on('newMessage', function (newMessage)
 {
   console.log('Got newMessage: ', newMessage);
 });
+
+
+socket.emit('createMessage',
+{
+  from: 'PJ',
+  text: 'Hello from client'
+}, function (feedbackData)
+  {
+    // callback client side for feedback from message (cf server)
+    console.log('message received on client: ', feedbackData);
+  }
+);

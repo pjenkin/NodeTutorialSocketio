@@ -91,7 +91,8 @@ io.on('connection', (socket) =>
   // challenge 9-108: newMessage : from, text, createdAt
   // receive from client:- createMessage : from, text
 
-  socket.on('createMessage', (createMessage) =>
+  // socket.on('createMessage', (createMessage) =>
+  socket.on('createMessage', (createMessage, callback) =>
   {
     // createMessage.createdAt = Date.now();    // ??
     console.log('received createMessage ', createMessage);
@@ -110,6 +111,13 @@ io.on('connection', (socket) =>
     //     text: createMessage.text,
     //     createdAt: new Date().getTime()
     // });
+
+    // feedback from server (needs complmentary callback cf client)
+    // callback();
+    // callback(
+    //   {
+    //   }
+    callback('This is acknowledgement feedback from the server');
 
     io.emit('newMessage', generateMessage(createMessage.from, createMessage.text));
     // oops, I should've used io.emit not socket.emit to send only to 1 user
