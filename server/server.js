@@ -63,6 +63,25 @@ io.on('connection', (socket) =>
     console.log('createEmail', newEmail);
   });
 
+
+  // challenge 9-110 (1) socket.emit from Admin "welcome to chat app" (2) socket.broadcast.emit from Admin "New user joined"
+  // NB within io.on('connection', (socket) =>.......
+
+  socket.emit('newMessage',
+  {
+        from: 'Admin',
+        text: 'Welcome to chat app',
+        // createdAt: new Date().getTime()
+  });
+
+  socket.broadcast.emit('newMessage',
+  {
+        from: 'Admin',
+        text: 'New user joined',
+        createdAt: new Date().getTime()
+  }); 
+
+
   // challenge 9-108: newMessage : from, text, createdAt
   // receive from client:- createMessage : from, text
 
@@ -79,12 +98,12 @@ io.on('connection', (socket) =>
     // });
 
     // broadcast - specifying origin socket
-    socket.broadcast.emit('newMessage',
-    {
-        from: createMessage.from,
-        text: createMessage.text,
-        createdAt: new Date().getTime()
-    });
+    // socket.broadcast.emit('newMessage',
+    // {
+    //     from: createMessage.from,
+    //     text: createMessage.text,
+    //     createdAt: new Date().getTime()
+    // });
 
   })
 
