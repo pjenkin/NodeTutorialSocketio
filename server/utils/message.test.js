@@ -9,10 +9,10 @@ describe('generateMessage', () =>
        // (act) gen message(from/text), store response
        // (assert) (1) from correct (2) text correct (3) createdAt is a number (typeof)
 
-       var fromString = 'PNJ@example.com';
-       var textString = 'Test text';
+       let fromString = 'PNJ@example.com';
+       let textString = 'Test text';
 
-       var generatedMessage = generateMessage(fromString, textString);
+       let generatedMessage = generateMessage(fromString, textString);
 
        expect(generatedMessage.from).toEqual(fromString);   // (1)
        expect(generatedMessage.text).toEqual(textString);    // (2)

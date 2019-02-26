@@ -1,4 +1,4 @@
-var generateMessage = (from, text) =>
+let generateMessage = (from, text) =>
 {
   return   {
     /* incredibly, (for mocha?) opening curly bracket must be on same line as return - semicolon inserted after 'return' by interpreter? */

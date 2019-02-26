@@ -16,10 +16,10 @@ console.log('publicPath using path.join : ',publicPath);
 
 // challenge 9-106: express app, middleware to server public, listen on 3000 (with message)
 
-var app = express();
+let app = express();
 // var server = http.createServer((request, response) => { });
-var server = http.createServer(app);    // can even use express variable as http module argument
-var io = socketIO(server);
+let server = http.createServer(app);    // can even use express variable as http module argument
+let io = socketIO(server);
 
 
 // var port = 3000;      // just 3000 for now
@@ -27,7 +27,7 @@ const port = process.env.PORT || 3000;
 
 app.get('/public', (request, response) =>
 {
-  var publicPage = '<html><p>Hello, pseudo- placeholder public page text here!</p></html>';
+  let publicPage = '<html><p>Hello, pseudo- placeholder public page text here!</p></html>';
   response.send(publicPage);
 });
 
