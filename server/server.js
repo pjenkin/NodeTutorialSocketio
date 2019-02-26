@@ -38,24 +38,24 @@ io.on('connection', (socket) =>
 
   // new event name and data with event
   // socket.emit('newEmail');
-  socket.emit('newEmail',
-  {
-      from: 'mike@example.com',
-      text: 'copying from video',
-      createAt: Date.now()
-  });
+  // socket.emit('newEmail',
+  // {
+  //     from: 'mike@example.com',
+  //     text: 'copying from video',
+  //     createAt: Date.now()
+  // });
 
   // challenge 9-108: newMessage : from, text, createdAt
   // receive from client:- createMessage : from, text
-  var fromString = 'PNJServer@example.com';    // https://www.w3schools.com/js/js_reserved.asp - from
-  var textBody = 'Hello from PNJ on server';
-  var createdAt = Date.now();
-  socket.emit('newMessage',
-  {
-      from: fromString,
-      text: textBody,
-      createdAt: createdAt
-  });
+  // var fromString = 'PNJServer@example.com';    // https://www.w3schools.com/js/js_reserved.asp - from
+  // var textBody = 'Hello from PNJ on server';
+  // var createdAt = Date.now();
+  // socket.emit('newMessage',
+  // {
+  //     from: fromString,
+  //     text: textBody,
+  //     createdAt: createdAt
+  // });
 
 
   socket.on('createEmail', (newEmail) =>
@@ -70,6 +70,13 @@ io.on('connection', (socket) =>
   {
     // createMessage.createdAt = Date.now();    // ??
     console.log('received createMessage ', createMessage);
+    // io.emit (not socket.emit) - send to *all* connections
+    io.emit('newMessage',
+    {
+      from: createMessage.from,
+      text: createMessage.text,
+      createdAt: new Date().getTime()
+    });
   })
 
   // challenge 9-107
