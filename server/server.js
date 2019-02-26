@@ -4,6 +4,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 
 const publicPath = path.join(__dirname, '../public');
+const {generateMessage} = require('./utils/message');
 
 console.log('using dot dot only', __dirname + '/../public');   // current directory + public
 // C:\Users\peter.DESKTOP-3GCVT7E\source\repos\Node\NodeChatApp\server/../public
@@ -67,19 +68,24 @@ io.on('connection', (socket) =>
   // challenge 9-110 (1) socket.emit from Admin "welcome to chat app" (2) socket.broadcast.emit from Admin "New user joined"
   // NB within io.on('connection', (socket) =>.......
 
-  socket.emit('newMessage',
-  {
-        from: 'Admin',
-        text: 'Welcome to chat app',
-        // createdAt: new Date().getTime()
-  });
+  // socket.emit('newMessage',
+  // {
+  //       from: 'Admin',
+  //       text: 'Welcome to chat app',
+  //       // createdAt: new Date().getTime()
+  // });
 
-  socket.broadcast.emit('newMessage',
-  {
-        from: 'Admin',
-        text: 'New user joined',
-        createdAt: new Date().getTime()
-  }); 
+  socket.emit('newMessage', generateMessage('Admin','Welcome to chat app'));
+
+  // socket.broadcast.emit('newMessage',
+  // {
+  //       from: 'Admin',
+  //       text: 'New user joined',
+  //       createdAt: new Date().getTime()
+  // });
+
+    // to all except user joining
+    socket.broadcast.emit('newMessage', generateMessage('Admin','New user joined'));
 
 
   // challenge 9-108: newMessage : from, text, createdAt
@@ -104,6 +110,10 @@ io.on('connection', (socket) =>
     //     text: createMessage.text,
     //     createdAt: new Date().getTime()
     // });
+
+    io.emit('newMessage', generateMessage(createMessage.from, createMessage.text));
+    // oops, I should've used io.emit not socket.emit to send only to 1 user
+
 
   })
 
