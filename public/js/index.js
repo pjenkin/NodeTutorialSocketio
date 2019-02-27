@@ -46,6 +46,11 @@ socket.on('newEmail', function (email)
 socket.on('newMessage', function (newMessage)
 {
   console.log('Got newMessage: ', newMessage);
+  var li = $('<li>/</li>');
+  li.text(`${newMessage.from}: ${newMessage.text}`);
+
+  // build up list of messages
+  $('#messages').append(li);
 });
 
 
@@ -73,5 +78,5 @@ console.log('form input default prevented');
   }, function ()
   {
     // started empty; callback present to fulfil required feedback/ACK/callback signature
-  })
+  });
 });
