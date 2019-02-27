@@ -59,3 +59,19 @@ socket.emit('createMessage',
     console.log('message received on client: ', feedbackData);
   }
 );
+
+$('#message-form').on('submit',function (event)
+{
+  event.preventDefault();
+console.log('form input default prevented');
+
+  // instead of default, generate/send a message
+  socket.emit('createMessage',
+  {
+    from: 'User',
+    text: $('[name=message]').val()    /* value of any element with name 'message' */
+  }, function ()
+  {
+    // started empty; callback present to fulfil required feedback/ACK/callback signature
+  })
+});

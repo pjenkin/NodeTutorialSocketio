@@ -119,6 +119,7 @@ io.on('connection', (socket) =>
     //   }
     callback('This is acknowledgement feedback from the server');
 
+
     io.emit('newMessage', generateMessage(createMessage.from, createMessage.text));
     // oops, I should've used io.emit not socket.emit to send only to 1 user
 
