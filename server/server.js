@@ -4,7 +4,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 
 const publicPath = path.join(__dirname, '../public');
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage} = require('./utils/message');
 
 console.log('using dot dot only', __dirname + '/../public');   // current directory + public
 // C:\Users\peter.DESKTOP-3GCVT7E\source\repos\Node\NodeChatApp\server/../public
@@ -128,7 +128,8 @@ io.on('connection', (socket) =>
   /* geolocation handling */
   socket.on('createLocationMessage', (coords) =>
   {
-    io.emit('newMessage', generateMessage('Admin',`${coords.latitude}, ${coords.longitude}`));
+    // io.emit('newMessage', generateMessage('Admin',`${coords.latitude}, ${coords.longitude}`));
+    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
   }
   );
 

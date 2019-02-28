@@ -53,6 +53,16 @@ socket.on('newMessage', function (newMessage)
   $('#messages').append(li);
 });
 
+socket.on('newLocationMessage', function (message)
+{
+  let li = $('<li></li>');
+  let a = $('<a target="_blank">My current location (mapped)</a>');
+  li.text(`${message.from}`);   // NB text() function
+  a.attr('href', message.url);     // 1 argument to get; 2 arguments to set (anti-injection)
+  li.append(a);
+  $('#messages').append(li);
+});
+
 
 socket.emit('createMessage',
 {
