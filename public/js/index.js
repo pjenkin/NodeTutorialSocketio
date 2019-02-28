@@ -46,18 +46,22 @@ socket.on('newEmail', function (email)
 socket.on('newMessage', function (newMessage)
 {
   console.log('Got newMessage: ', newMessage);
-  var li = $('<li>/</li>');
-  li.text(`${newMessage.from}: ${newMessage.text}`);
+  let formattedTime = moment(newMessage.createdAt).format('h:mm a');
+  let li = $('<li>/</li>');
+  li.text(`${newMessage.from} ${formattedTime} : ${newMessage.text}`);
+  // NB templaet strings not recommended for client/front end b/c browser compatibility (2019)
 
   // build up list of messages
   $('#messages').append(li);
 });
 
+// challenge 9-118: use moment in newLocationMessage
 socket.on('newLocationMessage', function (message)
 {
+  let formattedTime = moment(message.createdAt).format('h:mm a');
   let li = $('<li></li>');
   let a = $('<a target="_blank">My current location (mapped)</a>');
-  li.text(`${message.from}`);   // NB text() function
+  li.text(`${message.from}: ${formattedTime}`);   // NB text() function
   a.attr('href', message.url);     // 1 argument to get; 2 arguments to set (anti-injection)
   li.append(a);
   $('#messages').append(li);
