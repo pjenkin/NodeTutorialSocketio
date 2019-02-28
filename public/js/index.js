@@ -1,5 +1,32 @@
 var socket = io();
 
+
+/// scroll to bottom to show latest message when added (if scroll necessary)
+function scrollToBottom()
+{
+  // every time new message added
+
+  // selectors
+  let messages = $('#messages');
+  let newMessage = messages.children('li:last-child');
+  // get last (lowest-down) message in list
+
+  // heights
+  let clientHeight = messages.prop('clientHeight');
+  let scrollTop = messages.prop('scrollTop');
+  let scrollHeight = messages.prop('scrollHeight');
+  let newMessageHeight = newMessage.innerHeight();
+  let lastMessageHeight = newMessage.prev().innerHeight();
+  // previous child to last message - penultimate message's height
+
+  // only scroll to bottom if necessary
+  if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight)
+  {
+    // console.log('should scroll');
+    messages.scrollTop(scrollHeight);
+  }
+}
+
 // socket.on('connect', () =>
 socket.on('connect', function ()
 // function keyword not arrow function for client browser compatibility
@@ -65,6 +92,7 @@ socket.on('newMessage', function (newMessage)
   //
   // // build up list of messages
   // $('#messages').append(li);
+  scrollToBottom();
 });
 
 /// response to new location message event
@@ -89,6 +117,7 @@ socket.on('newLocationMessage', function (message)
   // a.attr('href', message.url);     // 1 argument to get; 2 arguments to set (anti-injection)
   // li.append(a);
   // $('#messages').append(li);
+  scrollToBottom();
 });
 
 
