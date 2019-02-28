@@ -80,3 +80,31 @@ console.log('form input default prevented');
     // started empty; callback present to fulfil required feedback/ACK/callback signature
   });
 });
+
+let locationButton = $('#send-location');
+locationButton.on('click', function ()
+{
+  if (!navigator.geolocation)
+  {
+    return alert('Geolocation is not supported by your browser.');
+    /* could use bootstrap or foundation dialogue */
+  }
+
+  /* (1) success, and (2) error handler callbacks */
+  navigator.geolocation.getCurrentPosition(function (position)
+  {
+    console.log(position);
+    socket.emit('createLocationMessage',
+    {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    });
+  },
+  // error handler callback
+   function ()
+  {
+      alert('Unable to fetch location.');
+  });
+
+});           // reusable variable
+// $(#send-location).on     // once only

@@ -122,9 +122,15 @@ io.on('connection', (socket) =>
 
     io.emit('newMessage', generateMessage(createMessage.from, createMessage.text));
     // oops, I should've used io.emit not socket.emit to send only to 1 user
-
-
   })
+
+  /* NB block comments used where copy-pasting code into word processor as notes */
+  /* geolocation handling */
+  socket.on('createLocationMessage', (coords) =>
+  {
+    io.emit('newMessage', generateMessage('Admin',`${coords.latitude}, ${coords.longitude}`));
+  }
+  );
 
   // challenge 9-107
   socket.on('disconnect', () =>
