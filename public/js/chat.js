@@ -42,15 +42,34 @@ socket.on('connect', function ()
   // challenge 9-108:- createMessage : from, text
   // NB createdAt made on server to prevent spoofing
   // receive from client:- newMessage : from, text, createdAt
-  var fromString = 'PNJClient@example.com';    // https://www.w3schools.com/js/js_reserved.asp - from
-  var textString = 'Hello from PNJ on client';
+  // var fromString = 'PNJClient@example.com';    // https://www.w3schools.com/js/js_reserved.asp - from
+  // var textString = 'Hello from PNJ on client';
   // socket.emit('createMessage',
   // {
   //   from: fromString,
   //   text: textString
   // });
 
+  let params = jQuery.deparam(window.location.search);
+// console.log('got here');
+// console.log(params);
 
+  socket.emit('join', params, function (error)
+   {
+console.log('got here too');
+console.log(params);
+console.log(error);
+    if (error)
+    {
+      alert(error);     // could be a modal with jQueryUI/bootstrap/foundation &c
+      window.location.href = '/';      // redirect to root page
+    }
+    else
+    {
+      console.log('No error');
+    }
+  });
+// console.log('got past emit join');
 });
 
 // socket.on('disconnect', () =>
@@ -119,6 +138,7 @@ socket.on('newLocationMessage', function (message)
   // $('#messages').append(li);
   scrollToBottom();
 });
+
 
 
 socket.emit('createMessage',

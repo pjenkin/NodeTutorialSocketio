@@ -5,6 +5,7 @@ const socketIO = require('socket.io');
 
 const publicPath = path.join(__dirname, '../public');
 const {generateMessage, generateLocationMessage} = require('./utils/message');
+const{isRealString} = require('./utils/validation');
 
 console.log('using dot dot only', __dirname + '/../public');   // current directory + public
 // C:\Users\peter.DESKTOP-3GCVT7E\source\repos\Node\NodeChatApp\server/../public
@@ -84,8 +85,24 @@ io.on('connection', (socket) =>
   //       createdAt: new Date().getTime()
   // });
 
-    // to all except user joining
-    socket.broadcast.emit('newMessage', generateMessage('Admin','New user joined'));
+  // to all except user joining
+  socket.broadcast.emit('newMessage', generateMessage('Admin','New user joined'));
+
+
+
+  socket.on('join', (params, callback) =>
+  {
+console.log('in socket.on join');
+    // check for valid name and room name in params
+    if (!isRealString(params.name) || !isRealString(params.room))
+    {
+console.log('params validation error');
+      callback('Name and room name are required please!');
+    }
+    callback();
+  });
+
+
 
 
   // challenge 9-108: newMessage : from, text, createdAt
