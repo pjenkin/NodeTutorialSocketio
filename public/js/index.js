@@ -45,26 +45,50 @@ socket.on('newEmail', function (email)
 
 socket.on('newMessage', function (newMessage)
 {
-  console.log('Got newMessage: ', newMessage);
+  /* using mustache template rendering */
   let formattedTime = moment(newMessage.createdAt).format('h:mm a');
-  let li = $('<li>/</li>');
-  li.text(`${newMessage.from} ${formattedTime} : ${newMessage.text}`);
-  // NB templaet strings not recommended for client/front end b/c browser compatibility (2019)
+  let template = $('#message-template').html();
+  let html = Mustache.render(template,
+  {
+    messageText: newMessage.text,
+    from: newMessage.from,
+    createdAt: formattedTime
+  });
 
-  // build up list of messages
-  $('#messages').append(li);
+  $('#messages').append(html);
+
+  // console.log('Got newMessage: ', newMessage);
+  // let formattedTime = moment(newMessage.createdAt).format('h:mm a');
+  // let li = $('<li>/</li>');
+  // li.text(`${newMessage.from} ${formattedTime} : ${newMessage.text}`);
+  // // NB templaet strings not recommended for client/front end b/c browser compatibility (2019)
+  //
+  // // build up list of messages
+  // $('#messages').append(li);
 });
 
+/// response to new location message event
 // challenge 9-118: use moment in newLocationMessage
+// challenge 9-119: use Mustache to render template for new location message
 socket.on('newLocationMessage', function (message)
 {
   let formattedTime = moment(message.createdAt).format('h:mm a');
-  let li = $('<li></li>');
-  let a = $('<a target="_blank">My current location (mapped)</a>');
-  li.text(`${message.from}: ${formattedTime}`);   // NB text() function
-  a.attr('href', message.url);     // 1 argument to get; 2 arguments to set (anti-injection)
-  li.append(a);
-  $('#messages').append(li);
+  let template = $('#location-template').html();
+  let html =  Mustache.render(template,  /* html to insert to template */
+  {
+    from: message.from,
+    url: message.url,
+    createdAt: formattedTime
+  });
+  $('#messages').append(html);
+
+  // let formattedTime = moment(message.createdAt).format('h:mm a');
+  // let li = $('<li></li>');
+  // let a = $('<a target="_blank">My current location (mapped)</a>');
+  // li.text(`${message.from}: ${formattedTime}`);   // NB text() function
+  // a.attr('href', message.url);     // 1 argument to get; 2 arguments to set (anti-injection)
+  // li.append(a);
+  // $('#messages').append(li);
 });
 
 
