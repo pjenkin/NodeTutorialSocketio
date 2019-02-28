@@ -2,25 +2,36 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Node js (socketIO) tutorial chat app</title>
     <link rel="icon" href="data:;base64,anything">
     <!-- https://www.udemy.com/the-complete-nodejs-developer-course-2/learn/v4/questions/4410866 https://stackoverflow.com/q/5199902  -->
   </head>
-  <body>
+  <body class="chat">
+
+<!-- pre-written CSS with BEM__notation names -->
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="users"></div>
+    </div>
+
+    <div class="chat__main">
+      <ol id="messages" class="chat__messages">
+      </ol>
+      <div class="chat__footer">
+        <form id="message-form">
+            <input name="message" type="text" placeholder="Type message here" autofocus autocomplete="off" />
+            <button>Send</button>
+        </form>
+
+        <button id="send-location">
+          Send location
+        </button>
+    </div>
+    </div>
+
     <p>Welcome to the chat tab</p>
 
-    <ol id="messages">
-
-    </ol>
-
-    <form id="message-form">
-        <input name="message" type="text" placeholder="Type message here" />
-        <button>Send</button>
-    </form>
-
-    <button id="send-location">
-      Send Location
-    </button>
 
     <script src="socket.io/socket.io.js"></script>
     <script src="/js/libs/jquery-3.3.1.min.js"></script>

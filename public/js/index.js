@@ -80,14 +80,17 @@ $('#message-form').on('submit',function (event)
   event.preventDefault();
 console.log('form input default prevented');
 
+  let messageTextbox = $('[name=message]');
+
   // instead of default, generate/send a message
   socket.emit('createMessage',
   {
     from: 'User',
-    text: $('[name=message]').val()    /* value of any element with name 'message' */
+    text: messageTextbox.val()    /* value of any element with name 'message' */
   }, function ()
   {
     // started empty; callback present to fulfil required feedback/ACK/callback signature
+    messageTextbox.val('');    // clear message input pane
   });
 });
 
@@ -100,9 +103,12 @@ locationButton.on('click', function ()
     /* could use bootstrap or foundation dialogue */
   }
 
+  locationButton.attr('disabled', 'disabled').text('Sending location ...');    // avoid multiple clicking during geolocation sending
+
   /* (1) success, and (2) error handler callbacks */
   navigator.geolocation.getCurrentPosition(function (position)
   {
+    locationButton.removeAttr('disabled').text('Send location');
     console.log(position);
     socket.emit('createLocationMessage',
     {
@@ -113,7 +119,8 @@ locationButton.on('click', function ()
   // error handler callback
    function ()
   {
-      alert('Unable to fetch location.');
+    locationButton.removeAttr('disabled').text('Send location');
+    alert('Unable to fetch location.');
   });
 
 });           // reusable variable

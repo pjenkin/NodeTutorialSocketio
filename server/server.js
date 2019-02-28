@@ -117,7 +117,7 @@ io.on('connection', (socket) =>
     // callback(
     //   {
     //   }
-    callback('This is acknowledgement feedback from the server');
+    callback();
 
 
     io.emit('newMessage', generateMessage(createMessage.from, createMessage.text));
