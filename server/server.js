@@ -76,7 +76,7 @@ io.on('connection', (socket) =>
   //       // createdAt: new Date().getTime()
   // });
 
-  socket.emit('newMessage', generateMessage('Admin','Welcome to chat app'));
+  // socket.emit('newMessage', generateMessage('Admin','Welcome to chat app'));
 
   // socket.broadcast.emit('newMessage',
   // {
@@ -86,7 +86,8 @@ io.on('connection', (socket) =>
   // });
 
   // to all except user joining
-  socket.broadcast.emit('newMessage', generateMessage('Admin','New user joined'));
+  // socket.broadcast.emit('newMessage', generateMessage('Admin','New user joined'));
+  // comment out in 9-123 since rooms added?
 
 
 
@@ -99,7 +100,25 @@ console.log('in socket.on join');
 console.log('params validation error');
       callback('Name and room name are required please!');
     }
-    callback();
+
+    socket.join(params.room);
+    // socket.leave
+
+    /*
+    // example socket comms
+    // io.emit                  // to every connected user
+    // socket.broadcast.emit    // to every connected user except for the user calling
+    // socket.emit              // to 1 specific users
+
+    // io.to(roomName).emit         // to every both connected and joined to 'room'
+    // socket.to(roomName).emit     // to every both connected and joined to 'room' except user calling
+
+    */
+
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app!'));  // from server to joining user
+    // socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined')); // to everyone except joining user
+    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined`)); // to everyone except joining user
+    callback();   // run the callback function supplied when emitting 'join'
   });
 
 

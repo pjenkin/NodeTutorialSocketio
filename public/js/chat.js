@@ -141,16 +141,16 @@ socket.on('newLocationMessage', function (message)
 
 
 
-socket.emit('createMessage',
-{
-  from: 'PJ',
-  text: 'Hello from client'
-}, function (feedbackData)
-  {
-    // callback client side for feedback from message (cf server)
-    console.log('message received on client: ', feedbackData);
-  }
-);
+// socket.emit('createMessage',
+// {
+//   from: 'PJ',
+//   text: 'Hello from client'
+// }, function (feedbackData)
+//   {
+//     // callback client side for feedback from message (cf server)
+//     console.log('message received on client: ', feedbackData);
+//   }
+// );
 
 $('#message-form').on('submit',function (event)
 {
