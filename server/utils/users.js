@@ -44,6 +44,9 @@ class Users
     // in my solution, I'm indexing 1st (only) of array if array has any content
     // return user which has been removed - for undo &c
   }
+  // video solution used getUser in removeUser
+  // video solution returned filter result [0] with no check for array length
+  // 1st item in empty array is undefined
 
   getUser(id)
   {
