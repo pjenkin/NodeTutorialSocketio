@@ -164,19 +164,28 @@ console.log (users.getUserList(params.room));
     // callback(
     //   {
     //   }
+    let user =  users.getUser(socket.id);
+
+    if (user && isRealString(createMessage.text))
+    {
+      io.to(user.roomName).emit('newMessage', generateMessage(createMessage.from, createMessage.text));
+      // oops, I should've used io.emit not socket.emit to send only to 1 user
+      // video solution inserted user name differently, by using user.name
+    }
+
     callback();
-
-
-    io.emit('newMessage', generateMessage(createMessage.from, createMessage.text));
-    // oops, I should've used io.emit not socket.emit to send only to 1 user
   })
 
   /* NB block comments used where copy-pasting code into word processor as notes */
   /* geolocation handling */
   socket.on('createLocationMessage', (coords) =>
   {
+    // challenge 9-127: restrict location messages to room
+    let user = users.getUser(socket.id);
     // io.emit('newMessage', generateMessage('Admin',`${coords.latitude}, ${coords.longitude}`));
-    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    // io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    io.to(user.roomName).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
+    // NB unlike createMessage (createMessage.from), use user.name as per video solution
   }
   );
 
