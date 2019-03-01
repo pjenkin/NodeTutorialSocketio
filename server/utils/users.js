@@ -76,6 +76,7 @@ class Users
     // });
     // return only names, using array.map
 
+    /*  TODO - fix bug where no users left in list */
     return namesArray;
   }
 

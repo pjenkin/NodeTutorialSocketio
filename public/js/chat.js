@@ -78,6 +78,25 @@ socket.on('disconnect', function ()
   console.log('Disconnected from server');
 });
 
+/// show who's in 'room'
+socket.on('updateUserList', function (users)
+{
+  console.log('Users list: ');
+  console.log(users);
+  // use jQUery to make various elements showing user info and insert these to DOM
+  let ol = $('<ol></ol>');
+
+  users.forEach(function (user)
+  {
+    ol.append($('<li></li>').text(user));
+  });
+
+  $('#users').html(ol);   // no append - overwrite with current info of all users listed
+});
+
+
+
+
 // custom event
 // socket.on('newEmail', function ()
 socket.on('newEmail', function (email)
@@ -100,7 +119,7 @@ socket.on('newMessage', function (newMessage)
     from: newMessage.from,
     createdAt: formattedTime
   });
-
+console.log('newMessage.from: ',newMessage.from);
   $('#messages').append(html);
 
   // console.log('Got newMessage: ', newMessage);
@@ -156,13 +175,13 @@ $('#message-form').on('submit',function (event)
 {
   event.preventDefault();
 console.log('form input default prevented');
-
+  let params = jQuery.deparam(window.location.search);    // aha - lack of name fixed by this on messages
   let messageTextbox = $('[name=message]');
 
   // instead of default, generate/send a message
   socket.emit('createMessage',
   {
-    from: 'User',
+    from: params.name,     /* need to change this to show the user's name  */
     text: messageTextbox.val()    /* value of any element with name 'message' */
   }, function ()
   {
@@ -170,6 +189,8 @@ console.log('form input default prevented');
     messageTextbox.val('');    // clear message input pane
   });
 });
+
+
 
 let locationButton = $('#send-location');
 locationButton.on('click', function ()
