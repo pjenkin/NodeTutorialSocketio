@@ -1,4 +1,4 @@
-/* array of users */
+/* array of users for rooms */
 [
   {
     id: 'abc'
@@ -12,6 +12,28 @@
 // getUser(id) - user
 // getUserList(roomName) - [names]
 
+
+class Users
+{
+  constructor ()
+  {
+    this.users = [];    // no users at first
+  }
+
+  addUser (id, name, roomName)
+  {
+    let user = {id, name, roomName};
+    this.users.push(user);
+    return user;
+  }
+}
+
+module.exports = {Users};
+
+
+
+
+/*
 class Person
 {
   // constructor for this class
@@ -32,3 +54,4 @@ console.log('this.name', me.name);
 console.log('this.age', me.age);
 let description = me.getUserdescription();
 console.log(description);
+*/
